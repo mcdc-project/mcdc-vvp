@@ -1,10 +1,12 @@
-A collection of verification and validation suites for [MC/DC](https://github.com/CEMeNT-PSAAP/MCDC).
+A collection of verification and validation suites for [MC/DC](https://github.com/mcdc-project/mcdc).
 
 # Verification
 
 ## Analytical Verification
 
-### [Suite A](https://github.com/CEMeNT-PSAAP/MCDC-VV/tree/master/verification/analytical/suite_A) - Analytical multigroup fixed-source
+### Neutron transport
+
+#### [Suite A](https://github.com/mcdc-project/mcdc-vv/tree/master/verification/analytical/neutron/suite_A) - Analytical multigroup fixed-source
 
 Verification includes observing the $`N^{-0.5}`$ convergence in the errors (against analytical solutions) as the number of source particles $`N`$ is increased.
 The problems include:
@@ -18,15 +20,17 @@ The problems include:
 
 More involved problems that have no analytical solution are considered.
 MC/DC results are compared to those of [OpenMC](https://github.com/openmc-dev/openmc)) (input scripts provided).
-  
-### [Multigroup](https://github.com/CEMeNT-PSAAP/MCDC-VV/tree/master/verification/benchmark/multi_group)
+
+### Neutron transport
+
+#### [Multigroup](https://github.com/mcdc/mcdc-vv/tree/master/verification/benchmark/neutron/multigroup)
     
 Verification includes observing the $`N^{-0.5}`$ convergence in the relative differences of the two codes as the number of source particles $`N`$ is increased.
 The problems include:
 - Time-dependent version of the Kobayashi Dog-Leg transport benchmark [[Zenodo link](https://zenodo.org/records/15069882)]
 - Four-phase C5G7 transient benchmark [[Zenodo link](https://zenodo.org/records/15719118)]
 
-### [Continuous energy](https://github.com/CEMeNT-PSAAP/MCDC-VV/tree/master/verification/benchmark/continuous_energy)
+#### [Continuous energy](https://github.com/mcdc-project/mcdc-vv/tree/master/verification/benchmark/neutron/continuous_energy)
 
 Verification includes observing the agreement in the results of the two codes.
 The problems include:
