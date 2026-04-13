@@ -73,14 +73,12 @@ vv_hash = (
     .decode("utf-8")
     .strip()
 )
-date = datetime.datetime.now().isoformat()
 
 # Set the metadata yaml file
 with open("results/version.yaml", "w") as f:
     metadata = {
         "mcdc-source-version": mcdc_version,
         "mcdc-vv-hash": vv_hash,
-        "date": date,
     }
     yaml.dump(metadata, f, sort_keys=False)
 
