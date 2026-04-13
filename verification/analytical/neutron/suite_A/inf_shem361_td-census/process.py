@@ -33,10 +33,10 @@ for i, N_particle in enumerate(N_particle_list):
         E_mid = 0.5 * (E[1:] + E[:-1])
         dE = E[1:] - E[:-1]
     with h5py.File("output_%i.h5" % (int(N_particle)), "r") as f:
-        t = f["tallies/global_tally_0/grid/time"][:]
+        t = f["tallies/tracklength_tally_0/grid/time"][:]
         dt = t[1:] - t[:-1]
         K = len(t) - 1
-        phi = f["tallies/global_tally_0/flux/mean"][:]
+        phi = f["tallies/tracklength_tally_0/flux/mean"][:]
 
     # Neutron density
     n = np.zeros(K)

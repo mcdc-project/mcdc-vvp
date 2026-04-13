@@ -18,13 +18,13 @@ with np.load("../../data/MGXS-SHEM361.npz") as data:
     E_mid = 0.5 * (E[1:] + E[:-1])
     dE = E[1:] - E[:-1]
 with h5py.File(output, "r") as f:
-    t = f["tallies/mesh_tally_0/grid/t"][:]
+    t = f["tallies/tracklength_tally_0/grid/t"][:]
     dt = t[1:] - t[:-1]
     t_mid = 0.5 * (t[1:] + t[:-1])
     K = len(t) - 1
 
-    phi = f["tallies/mesh_tally_0/flux/mean"][:]
-    phi_sd = f["tallies/mesh_tally_0/flux/sdev"][:]
+    phi = f["tallies/tracklength_tally_0/flux/mean"][:]
+    phi_sd = f["tallies/tracklength_tally_0/flux/sdev"][:]
 
 # Neutron density
 n = np.zeros(K)

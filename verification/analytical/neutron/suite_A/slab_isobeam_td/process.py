@@ -14,8 +14,8 @@ N_particle_list = np.logspace(N_min, N_max, N)
 
 # Reference solution
 with h5py.File("output_%i.h5" % (int(N_particle_list[0])), "r") as f:
-    x = f["tallies/mesh_tally_0/grid/x"][:]
-    t = f["tallies/mesh_tally_0/grid/time"][:]
+    x = f["tallies/tracklength_tally_0/grid/x"][:]
+    t = f["tallies/tracklength_tally_0/grid/time"][:]
 phi_ref = reference(x, t)
 
 # Error containers
@@ -26,14 +26,14 @@ error_max = np.zeros(len(N_particle_list))
 for i, N_particle in enumerate(N_particle_list):
     # Get results
     with h5py.File("output_%i.h5" % (int(N_particle)), "r") as f:
-        x = f["tallies/mesh_tally_0/grid/x"][:]
-        t = f["tallies/mesh_tally_0/grid/time"][:]
+        x = f["tallies/tracklength_tally_0/grid/x"][:]
+        t = f["tallies/tracklength_tally_0/grid/time"][:]
         K = len(t) - 1
         J = len(x) - 1
         dx = x[1:] - x[:-1]
         dt = t[1:] - t[:-1]
 
-        phi = f["tallies/mesh_tally_0/flux/mean"][:]
+        phi = f["tallies/tracklength_tally_0/flux/mean"][:]
 
     # Normalize
     for k in range(K):

@@ -14,8 +14,8 @@ N_particle_list = np.logspace(N_min, N_max, N)
 
 # Reference solution
 with h5py.File("output_%i.h5" % (int(N_particle_list[0])), "r") as f:
-    z = f["tallies/mesh_tally_0/grid/z"][:]
-    mu = f["tallies/mesh_tally_0/grid/mu"][:]
+    z = f["tallies/tracklength_tally_0/grid/z"][:]
+    mu = f["tallies/tracklength_tally_0/grid/mu"][:]
 phi_ref, J_ref, psi_ref = reference(z, mu)
 
 # Error containers
@@ -29,14 +29,14 @@ error_max_psi = np.zeros(len(N_particle_list))
 for k, N_particle in enumerate(N_particle_list):
     # Get results
     with h5py.File("output_%i.h5" % (int(N_particle)), "r") as f:
-        z = f["tallies/mesh_tally_0/grid/z"][:]
+        z = f["tallies/tracklength_tally_0/grid/z"][:]
         dz = z[1:] - z[:-1]
-        mu = f["tallies/mesh_tally_0/grid/mu"][:]
+        mu = f["tallies/tracklength_tally_0/grid/mu"][:]
         dmu = mu[1:] - mu[:-1]
         I = len(z) - 1
         N = len(mu) - 1
 
-        psi = f["tallies/mesh_tally_0/flux/mean"][:]
+        psi = f["tallies/tracklength_tally_0/flux/mean"][:]
         psi = np.transpose(psi)
 
     # Scalar flux

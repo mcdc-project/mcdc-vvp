@@ -24,7 +24,7 @@ for i_census in range(N_census):
     for i_batch in range(N_batch):
         with h5py.File("output-batch_%i-census_%i.h5" % (i_batch, i_census), "r") as f:
             phi[5 * i_census : 5 * i_census + 5, :] += f[
-                "tallies/mesh_tally_0/flux/score"
+                "tallies/tracklength_tally_0/flux/score"
             ][:]
     phi[5 * i_census : 5 * i_census + 5] /= N_batch
 

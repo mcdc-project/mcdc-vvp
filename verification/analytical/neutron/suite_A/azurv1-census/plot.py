@@ -11,15 +11,15 @@ phi_ref = data["phi"]
 # Get results
 output = sys.argv[1]
 with h5py.File(output, "r") as f:
-    x = f["tallies/mesh_tally_0/grid/x"][:]
+    x = f["tallies/tracklength_tally_0/grid/x"][:]
     dx = x[1:] - x[:-1]
     x_mid = 0.5 * (x[:-1] + x[1:])
-    t = f["tallies/mesh_tally_0/grid/t"][:]
+    t = f["tallies/tracklength_tally_0/grid/t"][:]
     dt = t[1:] - t[:-1]
     K = len(t) - 1
 
-    phi = f["tallies/mesh_tally_0/flux/mean"][:]
-    phi_sd = f["tallies/mesh_tally_0/flux/sdev"][:]
+    phi = f["tallies/tracklength_tally_0/flux/mean"][:]
+    phi_sd = f["tallies/tracklength_tally_0/flux/sdev"][:]
 
     # Normalize
     for k in range(K):

@@ -8,23 +8,23 @@ from reference import reference
 # Reference solution
 output = sys.argv[1]
 with h5py.File(output, "r") as f:
-    z = f["tallies/mesh_tally_0/grid/z"][:]
-    mu = f["tallies/mesh_tally_0/grid/mu"][:]
+    z = f["tallies/tracklength_tally_0/grid/z"][:]
+    mu = f["tallies/tracklength_tally_0/grid/mu"][:]
 phi_ref, J_ref, psi_ref = reference(z, mu)
 
 # Load results
 with h5py.File(output, "r") as f:
-    z = f["tallies/mesh_tally_0/grid/z"][:]
+    z = f["tallies/tracklength_tally_0/grid/z"][:]
     dz = z[1:] - z[:-1]
     z_mid = 0.5 * (z[:-1] + z[1:])
-    mu = f["tallies/mesh_tally_0/grid/mu"][:]
+    mu = f["tallies/tracklength_tally_0/grid/mu"][:]
     dmu = mu[1:] - mu[:-1]
     mu_mid = 0.5 * (mu[:-1] + mu[1:])
     I = len(z) - 1
     N = len(mu) - 1
 
-    psi = f["tallies/mesh_tally_0/flux/mean"][:]
-    psi_sd = f["tallies/mesh_tally_0/flux/sdev"][:]
+    psi = f["tallies/tracklength_tally_0/flux/mean"][:]
+    psi_sd = f["tallies/tracklength_tally_0/flux/sdev"][:]
 
     psi = np.transpose(psi)
     psi_sd = np.transpose(psi_sd)
