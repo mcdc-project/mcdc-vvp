@@ -9,13 +9,13 @@ output = sys.argv[1]
 
 # Load results
 with h5py.File(output, "r") as f:
-    z = f["tallies/mesh_tally_0/grid/z"][:]
+    z = f["tallies/tracklength_tally_0/grid/z"][:]
     dz = z[1:] - z[:-1]
     z_mid = 0.5 * (z[:-1] + z[1:])
     I = len(z) - 1
 
-    phi = f["tallies/mesh_tally_0/flux/mean"][:]
-    phi_sd = f["tallies/mesh_tally_0/flux/sdev"][:]
+    phi = f["tallies/tracklength_tally_0/flux/mean"][:]
+    phi_sd = f["tallies/tracklength_tally_0/flux/sdev"][:]
 
 # Normalize
 phi, phi_sd = phi / dz, phi_sd / dz

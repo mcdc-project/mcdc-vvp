@@ -4,7 +4,9 @@ from pathlib import Path
 import yaml
 
 # Option parser
-parser = argparse.ArgumentParser(description="MC/DC verification - analytical")
+parser = argparse.ArgumentParser(
+    description="MC/DC verification - analytical - neutron - suite A"
+)
 parser.add_argument("--srun", type=int, default=0)
 parser.add_argument("--mpiexec", type=int, default=0)
 parser.add_argument("--mpirun", type=int, default=0)

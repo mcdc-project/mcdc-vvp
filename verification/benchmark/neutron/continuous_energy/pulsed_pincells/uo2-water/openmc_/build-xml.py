@@ -3,22 +3,22 @@ import numpy as np
 
 # Materials
 fuel = openmc.Material()
-fuel.add_nuclide('U235', 0.0001654509603995036)
-fuel.add_nuclide('U238', 0.022801089905717036)
-fuel.add_nuclide('O16', 0.04593308173223308)
+fuel.add_nuclide("U235", 0.0001654509603995036)
+fuel.add_nuclide("U238", 0.022801089905717036)
+fuel.add_nuclide("O16", 0.04593308173223308)
 #
 moderator = openmc.Material()
-moderator.add_nuclide('H1', 0.05129627050184732)
-moderator.add_nuclide('O16', 0.024622209840886707)
-moderator.add_nuclide('B10', 4.103701640147785e-05)
+moderator.add_nuclide("H1", 0.05129627050184732)
+moderator.add_nuclide("O16", 0.024622209840886707)
+moderator.add_nuclide("B10", 4.103701640147785e-05)
 #
 materials = openmc.Materials([fuel, moderator])
 materials.export_to_xml()
 
 # Geometry
-cylinder = openmc.ZCylinder(r=0.45720, name='Fuel OR')
+cylinder = openmc.ZCylinder(r=0.45720, name="Fuel OR")
 pitch = 1.25984
-box = openmc.model.RectangularPrism(pitch, pitch, boundary_type='reflective')
+box = openmc.model.RectangularPrism(pitch, pitch, boundary_type="reflective")
 #
 fuel_cell = openmc.Cell(fill=fuel, region=-cylinder)
 moderator_cell = openmc.Cell(fill=moderator, region=+cylinder & -box)

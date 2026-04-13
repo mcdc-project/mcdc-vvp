@@ -1,7 +1,6 @@
 import numpy as np
 import mcdc
 
-
 # ======================================================================================
 # Set model
 # ======================================================================================
@@ -51,7 +50,7 @@ mcdc.Source(
 # ======================================================================================
 
 # Tallies
-mcdc.TallyGlobal(scores=["flux"], energy="all_groups")
+mcdc.Tally(scores=["flux"], energy="all_groups")
 
 # Swttings
 mcdc.settings.N_particle = 40

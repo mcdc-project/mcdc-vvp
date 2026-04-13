@@ -1,7 +1,7 @@
 tallies.out
 statepoint*
 tmp*
-*.pbs
+submit.pbs
 *png
 __pycache__
 output*

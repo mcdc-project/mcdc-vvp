@@ -285,9 +285,13 @@ y1 = mcdc.Surface.PlaneY(y=-pitch * 17 * 2)
 y2 = mcdc.Surface.PlaneY(y=-pitch * 17)
 y3 = mcdc.Surface.PlaneY(y=0.0, boundary_condition="reflective")
 
-z0 = mcdc.Surface.PlaneZ(z=-(core_height / 2 + reflector_thickness), boundary_condition="vacuum")
+z0 = mcdc.Surface.PlaneZ(
+    z=-(core_height / 2 + reflector_thickness), boundary_condition="vacuum"
+)
 z1 = mcdc.Surface.PlaneZ(z=-(core_height / 2))
-z2 = mcdc.Surface.PlaneZ(z=(core_height / 2 + reflector_thickness), boundary_condition="vacuum")
+z2 = mcdc.Surface.PlaneZ(
+    z=(core_height / 2 + reflector_thickness), boundary_condition="vacuum"
+)
 
 # Assembly cells
 center = np.array([pitch * 17 / 2, -pitch * 17 / 2, 0.0])

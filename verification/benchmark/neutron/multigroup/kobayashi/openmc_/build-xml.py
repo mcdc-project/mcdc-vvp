@@ -2,7 +2,6 @@ import numpy as np
 
 import openmc
 
-
 ###############################################################################
 # Create materials for the problem
 

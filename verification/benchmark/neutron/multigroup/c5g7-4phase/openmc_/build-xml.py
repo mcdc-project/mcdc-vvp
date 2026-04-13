@@ -5,7 +5,6 @@ import numpy as np
 
 import openmc, sys
 
-
 ###############################################################################
 # Create multigroup data
 

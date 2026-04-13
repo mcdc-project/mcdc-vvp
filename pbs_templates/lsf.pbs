@@ -1,0 +1,12 @@
+#!/bin/bash
+#BSUB -nnodes <N_NODE>
+#BSUB -J <JOB_NAME>
+#BSUB -W <TIME>
+#BSUB -o output<CASE>.out
+#BSUB -e output<CASE>.err
+
+conda init bash
+source ~/.bashrc
+conda activate mcdc-dev
+
+<COMMANDS>

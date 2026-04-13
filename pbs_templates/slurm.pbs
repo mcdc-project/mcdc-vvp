@@ -1,0 +1,8 @@
+#!/bin/bash
+#SBATCH -N <N_NODE>
+#SBATCH -J <JOB_NAME>
+#SBATCH -t <TIME>
+#SBATCH -o output<CASE>.out
+#SBATCH -e output<CASE>.err
+
+<COMMANDS>

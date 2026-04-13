@@ -5,7 +5,6 @@ import sys
 
 from reference import reference
 
-
 # Load results
 output = sys.argv[1]
 with np.load("../../data/MGXS-SHEM361.npz") as data:
@@ -14,8 +13,8 @@ with np.load("../../data/MGXS-SHEM361.npz") as data:
     E_mid = 0.5 * (E[1:] + E[:-1])
     dE = E[1:] - E[:-1]
 with h5py.File(output, "r") as f:
-    phi = f["tallies/mesh_tally_0/flux/mean"][:] / dE * E_mid
-    phi_sd = f["tallies/mesh_tally_0/flux/sdev"][:] / dE * E_mid
+    phi = f["tallies/tracklength_tally_0/flux/mean"][:] / dE * E_mid
+    phi_sd = f["tallies/tracklength_tally_0/flux/sdev"][:] / dE * E_mid
 
 # Reference solution
 phi_ref = reference() / dE * E_mid
