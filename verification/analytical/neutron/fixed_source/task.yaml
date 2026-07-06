@@ -1,0 +1,97 @@
+# =============================================================================
+# MC/DC Verification Task Definitions
+# =============================================================================
+#
+# This file defines the fixed-source analytical neutron verification cases.
+#
+# Each top-level key corresponds to a case directory under this suite, for
+# example:
+#
+#     azurv1  ->  fixed_source/cases/azurv1/
+#
+# Parameters
+# ----------
+# logN_min : int
+#     Base-10 logarithm of the minimum particle count.
+#
+# logN_max : int
+#     Base-10 logarithm of the maximum particle count.
+#
+# N_task : int
+#     Number of particle-count tasks between logN_min and logN_max, inclusive.
+#     The particle counts are generated internally using:
+#
+#         numpy.logspace(logN_min, logN_max, N_task, dtype=int)
+#
+# Example
+# -------
+# logN_min: 5
+# logN_max: 7
+# N_task: 7
+#
+# generates:
+#
+#     100000
+#     215443
+#     464158
+#     1000000
+#     2154434
+#     4641588
+#     10000000
+#
+# =============================================================================
+
+azurv1:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+azurv1-census:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+azurv1-census-tally:
+  logN_min: 4
+  logN_max: 6
+  N_task: 7
+
+azurv1_sub:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+azurv1_super:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+slab_absorbium:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+slab_isobeam_td:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+inf_shem361:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+inf_shem361_td:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+inf_shem361_td-census:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+reed:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
