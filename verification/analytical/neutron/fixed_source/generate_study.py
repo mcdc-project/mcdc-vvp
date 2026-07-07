@@ -5,6 +5,15 @@ import yaml
 
 from platform_config import PLATFORMS
 
+try:
+    from user_config import USER_CONFIG
+except ImportError:
+    USER_CONFIG = {}
+
+
+# ======================================================================================
+# Command-line arguments
+# ======================================================================================
 
 parser = argparse.ArgumentParser(
     description="Generate a MaestroWF study.yaml for MC/DC VVP."
@@ -30,10 +39,12 @@ parser.add_argument(
 args = parser.parse_args()
 
 if args.mpi and args.platform == "local":
-    parser.error(
-        "--mpi requires a cluster platform. "
-        "Specify --platform <platform>."
-    )
+    parser.error("--mpi requires a cluster platform. Specify --platform <platform>.")
+
+
+# ======================================================================================
+# Paths and platform configuration
+# ======================================================================================
 
 suite_dir = Path(__file__).resolve().parent
 task_file = suite_dir / args.task_file
@@ -53,9 +64,18 @@ if not local:
     )
     walltime = platform["walltime_format"].format(hours=walltime_hours)
 
+
+# ======================================================================================
+# Load tasks
+# ======================================================================================
+
 with task_file.open("r") as f:
     tasks = yaml.safe_load(f)
 
+
+# ======================================================================================
+# Build Maestro steps
+# ======================================================================================
 
 steps = []
 
@@ -88,10 +108,14 @@ for case_name in tasks:
     )
 
 
+# ======================================================================================
+# Build Maestro study
+# ======================================================================================
+
 study = {
     "description": {
         "name": "maestro_run",
-        "description": "MC/DC verification - analytical neutron - fixed source",
+        "description": "MC/DC verification - analytical neutron - fixed-source suite",
     },
     "env": {
         "variables": {},
@@ -100,14 +124,44 @@ study = {
 }
 
 if not local:
-    study["batch"] = {
+    user_platform_config = USER_CONFIG.get(args.platform, {})
+
+    account = user_platform_config.get("account")
+    queue = user_platform_config.get("queue")
+    reservation = user_platform_config.get("reservation")
+
+    if account is None:
+        parser.error(
+            f"--platform {args.platform} requires an account. "
+            "Create user_config.py from user_config.py.template."
+        )
+
+    batch = {
         "type": scheduler,
+        "host": platform["host"],
+        "bank": account,
     }
 
+    if queue is not None:
+        batch["queue"] = queue
+
+    if reservation is not None:
+        batch["reservation"] = reservation
+
+    study["batch"] = batch
+
+
+# ======================================================================================
+# Write study file
+# ======================================================================================
 
 with output_file.open("w") as f:
     yaml.dump(study, f, sort_keys=False)
 
+
+# ======================================================================================
+# Summary
+# ======================================================================================
 
 print(f"Wrote {output_file}")
 print(f"Platform : {args.platform}")
@@ -115,6 +169,9 @@ print(f"MPI      : {args.mpi}")
 
 if not local:
     print(f"Scheduler: {scheduler}")
+    print(f"Account  : {account}")
+    print(f"Queue    : {queue}")
+    print(f"Reserv.  : {reservation}")
     print(f"Walltime : {walltime}")
     print(f"Nodes    : 1")
     print(f"Procs    : {cpu_cores if args.mpi else 1}")

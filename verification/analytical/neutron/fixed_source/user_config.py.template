@@ -1,0 +1,7 @@
+USER_CONFIG = {
+    "your_machine_here": {
+        "account": "your_account_here",
+        "queue": "the_queue_here",
+        "reservation": None,
+    },
+}

@@ -4,6 +4,7 @@ Supported compute platforms and their parameters for MC/DC VVP workflows.
 
 PLATFORMS = {
     "dane": {
+        "host": "dane",
         "scheduler": "slurm",
         "submit": "sbatch",
         "launcher": "srun",
@@ -14,6 +15,7 @@ PLATFORMS = {
         "walltime_format": "{hours}:00:00",
     },
     "lassen": {
+        "host": "lassen",
         "scheduler": "lsf",
         "submit": "bsub",
         "launcher": "jsrun",
@@ -24,6 +26,7 @@ PLATFORMS = {
         "walltime_format": "{hours}:00",
     },
     "tuolumne": {
+        "host": "tuolumne",
         "scheduler": "flux",
         "submit": "flux batch",
         "launcher": "flux run",
