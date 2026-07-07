@@ -34,6 +34,6 @@ PLATFORMS = {
         "gpus_per_node": 4,
         "max_nodes": 128,
         "max_walltime_hours": 24,
-        "walltime_format": "{hours}h",
+        "walltime_format": "{hours}:00:00",
     },
 }

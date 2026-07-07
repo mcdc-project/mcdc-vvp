@@ -1,4 +1,5 @@
 import argparse
+import sys
 from pathlib import Path
 
 import yaml
@@ -25,17 +26,8 @@ parser.add_argument(
     default="local",
     choices=["local"] + list(PLATFORMS.keys()),
 )
-parser.add_argument(
-    "--mpi",
-    action="store_true",
-    help="Run each MC/DC simulation using MPI.",
-)
-parser.add_argument(
-    "--walltime",
-    type=int,
-    default=None,
-    help="Requested walltime in hours. Defaults to the platform maximum.",
-)
+parser.add_argument("--mpi", action="store_true")
+parser.add_argument("--walltime", type=int, default=None)
 args = parser.parse_args()
 
 if args.mpi and args.platform == "local":
@@ -51,6 +43,13 @@ task_file = suite_dir / args.task_file
 output_file = suite_dir / args.output
 
 local = args.platform == "local"
+user_platform_config = USER_CONFIG.get(args.platform, {})
+
+mcdc_python = user_platform_config.get("mcdc_python")
+if mcdc_python is None:
+    mcdc_python = sys.executable
+else:
+    mcdc_python = str(Path(mcdc_python).expanduser())
 
 if not local:
     platform = PLATFORMS[args.platform]
@@ -82,7 +81,7 @@ steps = []
 for case_name in tasks:
     safe_case_name = case_name.replace("-", "_")
 
-    command = f"python ../../run_case.py --name {case_name}"
+    command = f"{mcdc_python} ../../run_case.py --name {case_name}"
 
     if args.mpi:
         command += ' --mpi "$(LAUNCHER)"'
@@ -124,8 +123,6 @@ study = {
 }
 
 if not local:
-    user_platform_config = USER_CONFIG.get(args.platform, {})
-
     account = user_platform_config.get("account")
     queue = user_platform_config.get("queue")
     reservation = user_platform_config.get("reservation")
@@ -166,6 +163,7 @@ with output_file.open("w") as f:
 print(f"Wrote {output_file}")
 print(f"Platform : {args.platform}")
 print(f"MPI      : {args.mpi}")
+print(f"Python   : {mcdc_python}")
 
 if not local:
     print(f"Scheduler: {scheduler}")
