@@ -1,8 +1,0 @@
-#!/bin/bash
-#flux: -N <N_NODE>
-#flux: --job-name <JOB_NAME>
-#flux: -t <TIME>
-#flux: --output output<CASE>.out
-#flux: --error output<CASE>.err
-
-<COMMANDS>

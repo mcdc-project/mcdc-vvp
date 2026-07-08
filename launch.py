@@ -1,0 +1,169 @@
+import argparse
+import datetime
+import importlib.metadata
+import subprocess
+import sys
+from pathlib import Path
+
+import yaml
+
+
+# ======================================================================================
+# Bootstrap VVP imports
+# ======================================================================================
+
+REPO_DIR = Path(__file__).resolve().parent
+
+if str(REPO_DIR) not in sys.path:
+    sys.path.insert(0, str(REPO_DIR))
+
+
+# ======================================================================================
+# Load launch configuration
+# ======================================================================================
+
+from configs.launch_config import LAUNCH_CONFIG  # noqa: E402
+
+
+# ======================================================================================
+# Helper functions
+# ======================================================================================
+
+def get_git_hash(repo_dir):
+    return subprocess.check_output(
+        ["git", "-C", str(repo_dir), "rev-parse", "HEAD"],
+        stderr=subprocess.DEVNULL,
+        text=True,
+    ).strip()
+
+
+def is_git_dirty(repo_dir):
+    result = subprocess.run(
+        ["git", "-C", str(repo_dir), "status", "--porcelain"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        text=True,
+        check=True,
+    )
+    return bool(result.stdout.strip())
+
+
+def get_mcdc_version():
+    try:
+        return importlib.metadata.version("mcdc")
+    except importlib.metadata.PackageNotFoundError:
+        return None
+
+
+# ======================================================================================
+# Command-line arguments
+# ======================================================================================
+
+parser = argparse.ArgumentParser(description="Launch enabled MC/DC VVP suites.")
+parser.add_argument(
+    "--platform",
+    default=None,
+    help="Active platform. Use None/omit for local suites.",
+)
+args = parser.parse_args()
+
+active_platform = args.platform
+
+
+# ======================================================================================
+# Set up results metadata
+# ======================================================================================
+
+results_dir = REPO_DIR / "results"
+metadata_file = results_dir / "metadata.yaml"
+
+results_dir.mkdir(parents=True, exist_ok=True)
+
+if metadata_file.is_file():
+    with metadata_file.open("r") as f:
+        metadata = yaml.safe_load(f) or {}
+else:
+    metadata = {}
+
+metadata.setdefault("launches", [])
+
+metadata["launches"].append(
+    {
+        "launched_at": datetime.datetime.now(datetime.UTC).isoformat(),
+        "active_platform": active_platform,
+        "mcdc_version": get_mcdc_version(),
+        "mcdc_vvp_hash": get_git_hash(REPO_DIR),
+        "mcdc_vvp_dirty": is_git_dirty(REPO_DIR),
+        "launch_config": LAUNCH_CONFIG,
+    }
+)
+
+with metadata_file.open("w") as f:
+    yaml.dump(metadata, f, sort_keys=False)
+
+print("=" * 80)
+print("Prepared VVP results metadata")
+print(f"Results directory : {results_dir}")
+print(f"Metadata file     : {metadata_file}")
+print(f"Active platform   : {active_platform}")
+print("=" * 80)
+
+
+# ======================================================================================
+# Launch enabled, compatible suites
+# ======================================================================================
+
+for suite, options in LAUNCH_CONFIG.items():
+    if not options.get("enabled", False):
+        print(f"Skip disabled suite: {suite}")
+        continue
+
+    suite_platform = options.get("platform")
+
+    if suite_platform != active_platform:
+        print(
+            f"Skip platform mismatch: {suite} "
+            f"({suite_platform} != {active_platform})"
+        )
+        continue
+
+    suite_dir = REPO_DIR / suite
+    launcher = suite_dir / "launch.py"
+
+    if not suite_dir.is_dir():
+        raise FileNotFoundError(f"Suite directory not found: {suite_dir}")
+
+    if not launcher.is_file():
+        raise FileNotFoundError(f"Suite launcher not found: {launcher}")
+
+    command = [
+        sys.executable,
+        str(launcher),
+    ]
+
+    if suite_platform is not None:
+        command.extend(["--platform", suite_platform])
+
+    if options.get("mpi", False):
+        command.append("--mpi")
+
+    if options.get("walltime") is not None:
+        command.extend(["--walltime", str(options["walltime"])])
+
+    if options.get("rewrite", False):
+        command.append("--rewrite")
+
+    print("=" * 80)
+    print(f"Launching suite: {suite}")
+    print("Command:", " ".join(command))
+    print("=" * 80)
+
+    subprocess.run(command, cwd=suite_dir, check=True)
+
+
+# ======================================================================================
+# Summary
+# ======================================================================================
+
+print()
+print("Launch complete.")
