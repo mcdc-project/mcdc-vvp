@@ -2,9 +2,9 @@ import numpy as np
 import h5py
 import sys
 
-# Get tool
-sys.path.append("../")
-import tool
+# Get util
+sys.path.append("../../")
+import util
 
 # Cases run
 N_min = int(sys.argv[1])
@@ -38,9 +38,9 @@ for i, N_particle in enumerate(N_particle_list):
         phi[k] /= dx * dt[k]
 
     # Get error
-    error[i] = tool.error(phi, phi_ref)
+    error[i] = util.error(phi, phi_ref)
 
-    error_max[i] = tool.error_max(phi, phi_ref)
+    error_max[i] = util.error_max(phi, phi_ref)
 
 # Plot
-tool.plot_convergence("azurv1_flux", N_particle_list, error, error_max)
+util.plot_convergence("flux", N_particle_list, error, error_max)

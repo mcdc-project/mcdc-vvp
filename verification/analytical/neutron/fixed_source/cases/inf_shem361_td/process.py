@@ -2,8 +2,8 @@ import numpy as np
 import h5py
 import sys
 
-sys.path.append("../")
-import tool
+sys.path.append("../../")
+import util
 
 # Cases run
 N_min = int(sys.argv[1])
@@ -49,10 +49,10 @@ for i, N_particle in enumerate(N_particle_list):
         phi_ref[:, k] = phi_ref_[:, k] * E_mid / dE
         phi[:, k] *= E_mid / dE / dt[k]
 
-    error[i] = tool.rerror(phi, phi_ref)
-    error_n[i] = tool.rerror(n, n_ref)
-    error_max[i] = tool.rerror_max(phi, phi_ref)
-    error_max_n[i] = tool.rerror_max(n, n_ref)
+    error[i] = util.rerror(phi, phi_ref)
+    error_n[i] = util.rerror(n, n_ref)
+    error_max[i] = util.rerror_max(phi, phi_ref)
+    error_max_n[i] = util.rerror_max(n, n_ref)
 
-tool.plot_convergence("inf_shem361_td_flux", N_particle_list, error, error_max)
-tool.plot_convergence("inf_shem361_td_n", N_particle_list, error_n, error_max_n)
+util.plot_convergence("flux", N_particle_list, error, error_max)
+util.plot_convergence("n", N_particle_list, error_n, error_max_n)

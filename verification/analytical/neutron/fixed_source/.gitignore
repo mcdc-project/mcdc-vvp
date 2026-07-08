@@ -1,8 +1,3 @@
 study.yaml
-results/
 maestro_run*/
-*.h5
-*.png
-*.out
-*.err
-user_config.py
+results/

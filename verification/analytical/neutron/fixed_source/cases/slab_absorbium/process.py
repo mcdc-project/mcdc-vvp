@@ -3,8 +3,8 @@ import numpy as np
 import h5py
 import sys
 
-sys.path.append("../")
-import tool
+sys.path.append("../../")
+import util
 
 # Cases run
 N_min = int(sys.argv[1])
@@ -51,15 +51,15 @@ for k, N_particle in enumerate(N_particle_list):
         psi[:, n] = psi[:, n] / dz / dmu[n]
 
     # Get error
-    error[k] = tool.rerror(phi, phi_ref)
-    error_psi[k] = tool.rerror(psi, psi_ref)
+    error[k] = util.rerror(phi, phi_ref)
+    error_psi[k] = util.rerror(psi, psi_ref)
 
-    error_max[k] = tool.rerror_max(phi, phi_ref)
-    error_max_psi[k] = tool.rerror_max(psi, psi_ref)
+    error_max[k] = util.rerror_max(phi, phi_ref)
+    error_max_psi[k] = util.rerror_max(psi, psi_ref)
 
 
 # Plot
-tool.plot_convergence("slab_absorbium_flux", N_particle_list, error, error_max)
-tool.plot_convergence(
-    "slab_absorbium_angular_flux", N_particle_list, error_psi, error_max_psi
+util.plot_convergence("flux", N_particle_list, error, error_max)
+util.plot_convergence(
+    "flux", N_particle_list, error_psi, error_max_psi
 )
