@@ -1,3 +1,6 @@
+configs/launch_config.py
+configs/user_config.py
+
 tallies.out
 statepoint*
 tmp*
@@ -12,3 +15,4 @@ results
 summary.h5
 mgxs.h5
 *gif
+

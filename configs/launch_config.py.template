@@ -1,0 +1,9 @@
+LAUNCH_CONFIG = {
+    "verification/analytical/neutron/fixed_source": {
+        "enabled": True,
+        "platform": "tuolumne",
+        "mpi": True,
+        "walltime": None,
+        "rewrite": False,
+    },
+}
