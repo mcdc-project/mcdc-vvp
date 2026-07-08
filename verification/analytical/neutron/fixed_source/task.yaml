@@ -42,11 +42,56 @@
 # =============================================================================
 
 azurv1:
-  logN_min: 3
-  logN_max: 4
-  N_task: 3
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+azurv1-census:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+azurv1-census-tally:
+  logN_min: 4
+  logN_max: 6
+  N_task: 7
+
+azurv1_sub:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+azurv1_super:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+slab_absorbium:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+slab_isobeam_td:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
 
 inf_shem361:
-  logN_min: 3
-  logN_max: 4
-  N_task: 3
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+inf_shem361_td:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+inf_shem361_td-census:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
+
+reed:
+  logN_min: 5
+  logN_max: 7
+  N_task: 7
