@@ -1,0 +1,9 @@
+LAUNCH_CONFIG = {
+    "verification/analytical/neutron/fixed_source": {
+        "enabled": False,
+        "platform": None,
+        "mpi": False,
+        "walltime": None,
+        "rewrite": False,
+    },
+}

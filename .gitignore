@@ -1,3 +1,8 @@
+configs/launch_config.py
+configs/user_config.py
+
+results
+
 tallies.out
 statepoint*
 tmp*
@@ -5,10 +10,10 @@ submit.pbs
 *png
 __pycache__
 output*
-results
 *.core
 *xml
 *DS_Store
 summary.h5
 mgxs.h5
 *gif
+

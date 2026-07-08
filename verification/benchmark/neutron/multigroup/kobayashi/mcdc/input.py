@@ -62,12 +62,14 @@ mcdc.Source(
 
 # Tallies
 time_grid = np.linspace(0.0, 200.0, 101)
-mesh = mcdc.MeshUniform(x=(0.0, 1.0, 60), y=(0.0, 1.0, 100), z=(0.0, 1.0, 60))
-mcdc.TallyMesh(mesh=mesh, scores=["flux"], time=time_grid)
-mcdc.TallyGlobal(scores=["density"], time=time_grid)
+#mesh = mcdc.MeshUniform(x=(0.0, 1.0, 60), y=(0.0, 1.0, 100), z=(0.0, 1.0, 60))
+mesh = mcdc.MeshUniform(x=(0.0, 1.0, 60))
+mcdc.Tally(mesh=mesh, scores=["flux"], time=time_grid)
+mcdc.Tally(scores=["density"], time=time_grid)
 
 # Settings
-mcdc.settings.N_particle = int(1e9)
+#mcdc.settings.N_particle = int(1e9)
+mcdc.settings.N_particle = int(1e2)
 mcdc.settings.N_batch = 30
 
 # Run
