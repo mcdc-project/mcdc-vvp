@@ -14,7 +14,7 @@ with h5py.File(output, "r") as f:
     x = f["tallies/tracklength_tally_0/grid/x"][:]
     dx = x[1:] - x[:-1]
     x_mid = 0.5 * (x[:-1] + x[1:])
-    t = f["tallies/tracklength_tally_0/grid/t"][:]
+    t = f["tallies/tracklength_tally_0/grid/time"][:]
     dt = t[1:] - t[:-1]
     K = len(t) - 1
 
