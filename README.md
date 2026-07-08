@@ -6,7 +6,7 @@
 
 A collection of verification, validation, and performance (VVP) test suites for [MC/DC](https://github.com/mcdc-project/mcdc).
 
-The repository provides a unified framework for launching, processing, and organizing MC/DC verification campaigns on local workstations and HPC platforms. Each verification, validation, and performance suite is self-contained and can be executed independently, while the top-level launch and processing scripts enable reproducible campaign-wide execution.
+The repository provides a unified framework for launching, processing, and organizing MC/DC verification campaigns on local workstations and HPC platforms. Each verification, validation, and performance suite is self-contained and can be executed independently, while the top-level workflow enables reproducible campaign-wide execution. On supported HPC systems, campaign orchestration is performed using [Maestro](https://github.com/llnl/maestrowf).
 
 ## Repository organization
 
