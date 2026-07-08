@@ -1,43 +1,94 @@
-A collection of verification, validation, and performance test suites for [MC/DC](https://github.com/mcdc-project/mcdc).
+# MC/DC-VVP
 
-# Verification
+![MC/DC logo](https://raw.githubusercontent.com/mcdc-project/mcdc/main/assets/mcdc-logo.svg)
 
-## Analytical Verification
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
-Analytical verification involves observing the $`N^{-0.5}`$ convergence in the errors (against analytical solutions) as the number of source particles $`N`$ is increased.
+A collection of verification, validation, and performance (VVP) test suites for [MC/DC](https://github.com/mcdc-project/mcdc).
 
-### Neutron transport
+The repository provides a unified framework for launching, processing, and organizing MC/DC verification campaigns on local workstations and HPC platforms. Each verification, validation, and performance suite is self-contained and can be executed independently, while the top-level launch and processing scripts enable reproducible campaign-wide execution.
 
-#### [Suite A](https://github.com/mcdc-project/mcdc-vv/tree/master/verification/analytical/neutron/suite_A) - Analytical multigroup fixed-source
+## Repository organization
 
-- Steady-state flux distribution of a purely-absorbing multi-layer slab system
-- Reed's classic 1D problem [[reference](https://www.tandfonline.com/doi/abs/10.13182/NSE46-309)]
-- Flux temporal propagation from an isotropic planar surface source
-- Variations of the AZURV1 transient benchmark [[reference](https://www.osti.gov/servlets/purl/975281)]
-- Spectrum temporal evolutions from pulsed homogeneous infinite SHEM361-group thermal systems
-    
-## Benchmark verification (Code-to-code comparison)
+```text
+configs/        Shared platform, user, and launch configurations
+verification/   Verification test suites
+validation/     Validation test suites
+performance/    Performance test suites
+results/        Processed results from completed campaigns
 
-Benchmark verification considers more involved problems that have no analytical solution.
-Verification is guided through agreement in code-to-code comparison.
+launch.py       Launch all enabled suites
+process.py      Process all enabled suites
+```
 
-### Neutron transport
+Each suite contains its own launch and processing workflow and may also be executed manually without the top-level scripts.
 
-MC/DC results are compared to those of [OpenMC](https://github.com/openmc-dev/openmc)). Two physics modes are considered:
-- Multigroup: Verification involves observing the $`N^{-0.5}`$ convergence in the relative differences of the two codes as the number of source particles $`N`$ is increased.
-- Continuous energy: Verification involves observing the agreement in the results of the two codes.
+## Quick start
 
-#### [Multigroup](https://github.com/mcdc/mcdc-vv/tree/master/verification/benchmark/neutron/multigroup)
-    
-- Time-dependent version of the Kobayashi Dog-Leg transport benchmark [[Zenodo link](https://zenodo.org/records/15069882)]
-- Four-phase C5G7 transient benchmark [[Zenodo link](https://zenodo.org/records/15719118)]
+1. Create a user launch configuration:
 
-#### [Continuous energy](https://github.com/mcdc-project/mcdc-vv/tree/master/verification/benchmark/neutron/continuous_energy)
+```bash
+cp configs/launch_config.py.template configs/launch_config.py
+```
 
-- Temporal spectrum evolutions of neutron-pulsed pincells with various materials:
-  - UO2 and Water
-  - UO2 and Helium
+2. Edit `configs/launch_config.py` to enable the desired suites and select the target platform.
 
-# Validation
+3. Launch the enabled suites:
 
-# Performance
+```bash
+# Local execution
+python launch.py
+
+# HPC execution
+python launch.py --platform tuolumne
+```
+
+4. After all jobs have completed, process the results:
+
+```bash
+python process.py
+```
+
+Processed figures, metadata, and summary results are written to the `results/` directory.
+
+## Verification suites
+
+### Analytical verification
+
+Analytical verification demonstrates the expected statistical convergence of MC/DC by comparing numerical solutions against analytical reference solutions as the number of source particles is increased.
+
+| Physics | Suite | Description |
+| :------ | :---- | :---------- |
+| Neutron transport | Analytical fixed-source | Multigroup steady-state and transient fixed-source verification problems, including Reed's problem, AZURV1 variants, and infinite SHEM-361 benchmarks. |
+
+### Benchmark verification
+
+Benchmark verification compares MC/DC against established reference Monte Carlo codes on problems without analytical solutions.
+
+| Physics | Suite | Description |
+| :------ | :---- | :---------- |
+| Neutron transport (multigroup) | Benchmark multigroup | Time-dependent benchmark problems, including the Kobayashi Dog-Leg and C5G7 transient benchmarks. |
+| Neutron transport (continuous energy) | Benchmark continuous energy | Continuous-energy benchmark problems for representative reactor systems. |
+
+## Validation
+
+Validation suites compare MC/DC predictions against experimental measurements.
+
+*Coming soon.*
+
+## Performance
+
+Performance suites evaluate computational performance, scalability, and efficiency across supported execution platforms.
+
+*Coming soon.*
+
+## Documentation
+
+Comprehensive user and developer documentation will be available on Read the Docs. It will include:
+
+- Framework architecture
+- Launch and processing workflow
+- Platform and user configuration
+- Adding new suites
+- Adding new verification cases
+- Developer guidelines
