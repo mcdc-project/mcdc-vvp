@@ -70,6 +70,7 @@ python launch.py --platform tuolumne --N_node 1
 Use `--walltime HOURS` to set the base walltime.
 Cases with every expected MC/DC output are omitted from the Maestro study, while partially complete cases run only their missing active-cycle levels.
 Run `python cleanup.py` before launching to remove existing case outputs and start the suite fresh.
+Cleanup also removes processed results, generated Maestro run directories, and the untracked `study.yaml`.
 
 After all jobs have completed, process the latest Maestro run:
 

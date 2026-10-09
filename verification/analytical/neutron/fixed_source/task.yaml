@@ -45,88 +45,88 @@ azurv1:
   logN_min: 5
   logN_max: 7
   N_task: 7
-  walltime_factor: 0.716
+  walltime_factor: 0.45
 
 azurv1-basic_techniques:
   logN_min: 5
   logN_max: 7
   N_task: 7
-  walltime_factor: 0.715
+  walltime_factor: 0.45
 
 azurv1-weight_windows:
   logN_min: 4
   logN_max: 6
   N_task: 7
-  walltime_factor: 0.715
+  walltime_factor: 0.45
 
 azurv1-census:
   logN_min: 5
   logN_max: 7
   N_task: 7
-  walltime_factor: 0.715
+  walltime_factor: 0.50
 
 azurv1-census-tally:
   logN_min: 4
   logN_max: 6
   N_task: 7
-  walltime_factor: 0.679
+  walltime_factor: 0.40
 
 azurv1_sub:
   logN_min: 5
   logN_max: 7
   N_task: 7
-  walltime_factor: 0.679
+  walltime_factor: 0.40
 
 azurv1_super:
   logN_min: 5
   logN_max: 7
   N_task: 7
-  walltime_factor: 0.679
+  walltime_factor: 0.45
 
 slab_absorbium:
   logN_min: 5
   logN_max: 7
   N_task: 7
-  walltime_factor: 0.679
+  walltime_factor: 0.45
 
 slab_isobeam_td:
   logN_min: 5
   logN_max: 7
   N_task: 7
-  walltime_factor: 0.679
+  walltime_factor: 0.45
 
 inf_shem361:
   logN_min: 5
   logN_max: 7
   N_task: 7
-  walltime_factor: 0.786
+  walltime_factor: 0.55
 
 inf_shem361-weight_windows:
   logN_min: 3
   logN_max: 5
   N_task: 7
-  walltime_factor: 0.715
+  walltime_factor: 0.50
 
 inf_shem361_td:
   logN_min: 5
   logN_max: 7
   N_task: 7
-  walltime_factor: 0.787
+  walltime_factor: 0.70
 
 inf_shem361_td-census:
   logN_min: 5
   logN_max: 7
   N_task: 7
-  walltime_factor: 0.968
+  walltime_factor: 1.00
 
 reed:
   logN_min: 5
   logN_max: 7
   N_task: 7
-  walltime_factor: 0.717
+  walltime_factor: 0.45
 
 mms_two_group_slab:
   logN_min: 4
   logN_max: 6
   N_task: 7
-  walltime_factor: 0.645
+  walltime_factor: 0.50

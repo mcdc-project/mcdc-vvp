@@ -39,9 +39,9 @@ Each case contains a common set of files:
 
 ```text
 input.py            Define and run the MC/DC model
-reference.py        Download and verify the participating OpenMC outputs
+reference.py        Obtain participating-code comparison outputs
 process.py          Evaluate code-to-code convergence
-plot.py             Animate one MC/DC and OpenMC result pair
+plot.py             Plot or animate participating-code results
 ```
 
 ## Configuration
@@ -52,8 +52,8 @@ Each case defines a `walltime_factor` that scales the launch-level walltime for 
 The base walltime is specified in hours, and the scaled value is rounded up to the scheduler resolution and limited by the platform maximum.
 For example, a base of `1.5` hours gives C5G7 1 hour 30 minutes and Kobayashi 45 minutes.
 Local execution ignores walltime.
-Each case uses 30 batches, matching the corresponding OpenMC campaign.
-The total number of particle histories shown during processing is therefore the particle count per batch multiplied by 30.
+Each case uses 30 batches, matching the corresponding participating-code campaign.
+Processing reads the batch count from each output and multiplies it by the particle count per batch to obtain the total number of histories.
 The largest particle-count task supplies the participating results used to construct the fixed comparison reference.
 
 The OpenMC statepoints are canonical external comparison data because they are too large to track in this repository.
@@ -84,8 +84,9 @@ python launch.py --platform tuolumne --N_node 1
 Use `--walltime HOURS` to set the base walltime.
 Cases with all five MC/DC outputs are omitted from the Maestro study, while partially complete cases run only their missing particle levels.
 Run `python cleanup.py` before launching to remove existing case outputs and start the suite fresh.
+Cleanup also removes processed results, generated Maestro run directories, and the untracked `study.yaml`.
 
-After all jobs have completed and the OpenMC comparison data have been downloaded, process the latest Maestro run:
+After all jobs have completed and the participating-code comparison data are available, process the latest Maestro run:
 
 ```bash
 python process.py
@@ -101,10 +102,10 @@ Convergence figures are written to `results/convergence/`.
 Fixed-reference figures and animations are written to `results/reference/`.
 Animated spatial comparisons and relative-difference evolution at the largest shared sample size are written to `results/comparison/`.
 Each case may produce `reference_*.png` figures or `reference_*.gif` animations from the arithmetic mean of the largest-sample participating-code estimates.
-Each case produces `comparison.gif` for the participating-code solutions and `difference.gif` for their relative differences.
+Spatial cases produce `comparison.gif` and `difference.gif`; detector histories produce `comparison.png` and `difference.png`.
 The top-level `process.py` collects these figures under the repository's `results/` directory.
 
-Each case's `plot.py` can inspect one MC/DC and OpenMC result pair using the largest-sample pair as the fixed comparison reference:
+Each case's `plot.py` can inspect participating-code results at a selected sampling level using their largest-sample estimates as the fixed comparison reference:
 
 ```bash
 python cases/kobayashi/plot.py \
@@ -120,6 +121,7 @@ python cases/kobayashi/plot.py \
 | :--- | :---------- |
 | [`c5g7-4phase`](cases/c5g7-4phase/) | Four-phase C5G7 transient with a pulsed source and continuously moving control rods. |
 | [`kobayashi`](cases/kobayashi/) | Pulsed three-dimensional Kobayashi dog-leg shielding problem with a void channel. |
+| [`kobayashi-detector`](cases/kobayashi-detector/) | Pulsed multiplying dog-leg problem with a time-resolved detector capture tally. |
 
 ### Four-phase C5G7 transient
 
@@ -129,9 +131,20 @@ The MC/DC model uses the canonical cross sections in `data/MGXS-C5G7.h5`, while 
 
 ### Time-dependent Kobayashi dog-leg
 
-This one-group problem adapts the steady-state Kobayashi shielding benchmark by pulsing the source through a three-dimensional dog-leg void channel.
-The quantities of interest are the space-time flux distribution and total neutron density in time.
-The OpenMC statepoints are provided by the associated Zenodo record.
+The `kobayashi` case adapts the steady-state, one-group Kobayashi shielding benchmark by pulsing an isotropic source uniformly over time [0, 50] in a 10 × 10 × 10 source region.
+Particles stream through a three-dimensional dog-leg channel containing a weakly interacting material, surrounded by a scattering and absorbing shield.
+The quantities of interest are the space-time flux distribution on a unit-spaced three-dimensional mesh and the total neutron density, recorded in 100 time bins over [0, 200].
+The OpenMC statepoints for this baseline case are provided by the associated Zenodo record.
+
+The `kobayashi-detector` case extends this model with localized prompt-fission multiplication and a detector response at the channel exit.
+It retains the outer dimensions, dog-leg channel layout, source pulse, unit neutron speed, and reflective and vacuum outer boundary conditions of the baseline.
+A 10 cm fuel cube occupies x = [30, 40], y = [50, 60], z = [0, 10] at the second channel turn.
+The fuel has scattering and fission cross sections of 0.05 each, zero capture, and prompt fission multiplicity 2.5.
+A 10 cm detector cube occupies x = [30, 40], y = [90, 100], z = [30, 40] at the outlet and uses the shield material.
+These material, geometry, and source definitions match `mcdc/examples/kobayashi-dogleg/pulsed_with_fission/input.py`.
+
+The detector variant scores only capture integrated over the detector volume and each time bin, normalized per source particle.
+It replaces the baseline flux-map and density tallies with 500 unit-width time bins over [0, 500], extending the observation window and refining the time resolution.
 
 ## References
 

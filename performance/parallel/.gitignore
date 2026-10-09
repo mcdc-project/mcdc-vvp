@@ -1,0 +1,10 @@
+maestro_run_*/
+results/
+study.yaml
+study_*.yaml
+workspaces/
+
+cases/*/output*.h5
+cases/*/outputs/
+# Preserve ignore rules for generated outputs from the former case layout.
+cases/*/*/output*.h5

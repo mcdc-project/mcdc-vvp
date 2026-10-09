@@ -1,0 +1,18 @@
+oktavian-si-60:
+  neutron_leakage:
+    N_particle: 1_000_000_000
+    walltime_factor: 0.34
+
+fng-tud-sic:
+  p1:
+    N_particle: 1_000_000_000
+    walltime_factor: 0.01
+  p2:
+    N_particle: 1_000_000_000
+    walltime_factor: 0.00875
+  p3:
+    N_particle: 1_000_000_000
+    walltime_factor: 0.00875
+  p4:
+    N_particle: 1_000_000_000
+    walltime_factor: 0.00875

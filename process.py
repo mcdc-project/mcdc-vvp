@@ -49,8 +49,22 @@ for suite in LAUNCH_CONFIG:
         print("=" * 80)
         print(f"Processing suite: {suite}")
         print("=" * 80)
+
+        command = [sys.executable, str(processor)]
+        sinbad_root = LAUNCH_CONFIG[suite].get("sinbad_root")
+        if sinbad_root is not None:
+            sinbad_root = Path(sinbad_root).expanduser()
+            if not sinbad_root.is_absolute():
+                sinbad_root = REPO_DIR / sinbad_root
+            command.append(str(sinbad_root))
+        elif suite == "validation/sinbad":
+            raise ValueError(
+                "Set validation/sinbad sinbad_root in configs/launch_config.py "
+                "before processing the SINBAD suite."
+            )
+
         subprocess.run(
-            [sys.executable, str(processor)],
+            command,
             cwd=suite_dir,
             check=True,
         )

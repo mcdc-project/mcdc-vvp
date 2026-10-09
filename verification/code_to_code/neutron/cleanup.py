@@ -21,3 +21,8 @@ if results_dir.is_dir():
 for maestro_run in suite_dir.glob("maestro_run_*"):
     if maestro_run.is_dir():
         shutil.rmtree(maestro_run)
+
+# Remove the generated Maestro study definition.
+study_file = suite_dir / "study.yaml"
+if study_file.is_file():
+    study_file.unlink()

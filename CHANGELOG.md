@@ -16,6 +16,7 @@ Target release: 0.16.0, the first versioned MC/DC-VVP release.
 - Add energy-dependent weight-window and time-census variants of the infinite homogeneous SHEM-361 problem, from [@ilhamv]
 - Add AZURV1 variants for basic variance-reduction techniques, analytical spatial weight windows, time censuses, and census-based tallies, from [@ilhamv]
 - Add a neutron code-to-code verification suite for the C5G7 four-phase and Kobayashi dog-leg transients, including archived participating-code data, fixed largest-sample references, convergence metrics, and animated reference, comparison, and difference results, from [@ilhamv]
+- Add the `kobayashi-detector` neutron code-to-code verification, from [@ilhamv]
 - Add preliminary SINBAD model scaffolds for OKTAVIAN Si-60, FNG SiC, FNG/TUD SiC, and RFNC photon-compound experiments based on their public benchmark entries, from [@ilhamv]
 - Add top-level and suite-level READMEs describing layouts, configuration, launching, processing, cases, and references, from [@ilhamv]
 - Add shared platform, user, and launch configuration for local and HPC campaigns, from [@ilhamv]
@@ -24,6 +25,8 @@ Target release: 0.16.0, the first versioned MC/DC-VVP release.
 
 ### Changed
 
+- Align the verification, serial-performance, and parallel-performance `kobayashi-detector` models with the MC/DC `pulsed_with_fission` example, using cubic fuel and detector regions and equal scattering and fission fuel cross sections of 0.05 cm⁻¹, from [@ilhamv]
+
 - Distribute the analytical fixed-source slab cases across the $x$, $y$, and $z$ axes to exercise every Cartesian slab orientation, from [@ilhamv]
 - Migration to Maestro-based launch, from [@ilhamv]
 - Update analytical fixed-source cases for the simulation-owned MC/DC interface and unified material model, from [@ilhamv]
@@ -31,6 +34,7 @@ Target release: 0.16.0, the first versioned MC/DC-VVP release.
 - Organize fixed-source cases around consistent input, reference, processing, and optional plotting scripts, from [@ilhamv]
 - Reorganize legacy neutron benchmarks as code-to-code verification cases without separate continuous-energy and multigroup directory levels, from [@ilhamv]
 - Use `N_node` for HPC resource selection, apply case-specific `walltime_factor` values to suite base walltimes, and skip completed tasks while retaining partial results, from [@ilhamv]
+- Refine the FNG/TUD SiC correlated source representation to 32 angular intervals with 72-point conditional energy distributions, from [@ilhamv]
 - Organize processed results into convergence, reference, and comparison outputs and collect them through the top-level processing workflow, from [@ilhamv]
 - Consolidate the canonical SHEM-361 multigroup dataset under the analytical fixed-source suite for reuse by all SHEM-361 cases, from [@ilhamv]
 

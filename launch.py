@@ -41,7 +41,12 @@ platform_name = active_platform or "local"
 selected_suites = {
     suite: options
     for suite, options in LAUNCH_CONFIG.items()
-    if options.get("enabled", False) and options.get("platform") == active_platform
+    if options.get("enabled", False)
+    and (
+        active_platform in options["platform"]
+        if isinstance(options.get("platform"), list)
+        else options.get("platform") == active_platform
+    )
 }
 if not selected_suites:
     parser.error(f"No enabled suites are configured for platform '{platform_name}'.")
@@ -52,7 +57,12 @@ if not selected_suites:
 # ======================================================================================
 
 for suite, options in selected_suites.items():
-    suite_platform = options.get("platform")
+    # A list selects compatible hosts, not remote submissions from this host.
+    if isinstance(options.get("platform"), list) and suite != "performance/parallel":
+        parser.error(
+            "Platform lists are currently supported only by performance/parallel."
+        )
+    suite_platform = active_platform
     suite_dir = REPO_DIR / suite
     launcher = suite_dir / "launch.py"
 
@@ -74,6 +84,9 @@ for suite, options in selected_suites.items():
 
     if options.get("walltime") is not None:
         command.extend(["--walltime", str(options["walltime"])])
+
+    if options.get("N_node_max") is not None:
+        command.extend(["--N_node_max", str(options["N_node_max"])])
 
     print("=" * 80)
     print(f"Launching suite: {suite}")

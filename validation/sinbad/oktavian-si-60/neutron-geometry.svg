@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-labelledby="title description">
+  <title id="title">OKTAVIAN Si-60 neutron-leakage experiment</title>
+  <desc id="description">Schematic section of the neutron-measurement configuration showing the silicon sphere, target assembly, 55-degree detector axis, neutron pre-collimator, shielding blocks, and NE-218 detector.</desc>
+
+  <defs>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#c94f5d"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#244d70"/>
+    </marker>
+    <clipPath id="shield-blocks">
+      <rect x="141" y="155" width="545" height="44"/>
+      <rect x="452" y="199" width="180" height="33"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1200" height="820" fill="#ffffff"/>
+  <text x="600" y="40" text-anchor="middle" font-family="sans-serif" font-size="27" font-weight="600" fill="#173f5f">OKTAVIAN Si-60 neutron-leakage experiment</text>
+  <text x="600" y="66" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#5b6570">Schematic section showing principal geometry and materials · dimensions compressed · orientations preserved</text>
+
+  <!-- Global-axis-aligned neutron shielding blocks -->
+  <rect x="141" y="155" width="545" height="44" fill="#d9d3c8" stroke="#8f887d" stroke-width="2"/>
+  <rect x="433" y="155" width="103" height="44" fill="#b8ab92" stroke="#81745e" stroke-width="2"/>
+  <rect x="452" y="199" width="180" height="33" fill="#b8ab92" stroke="#81745e" stroke-width="2"/>
+  <polygon points="404.1,361.6 584.3,121.6 604.0,135.4 440.1,386.9" fill="#4d5660" clip-path="url(#shield-blocks)"/>
+  <polygon points="407.3,363.9 588.4,124.5 599.9,132.5 436.8,384.6" fill="#ffffff" clip-path="url(#shield-blocks)"/>
+  <line x1="632" y1="214" x2="705" y2="176" stroke="#68727d" stroke-width="1.5"/>
+  <text x="720" y="162" font-family="sans-serif" font-size="16" font-weight="600" fill="#173f5f">Neutron collimator and shielding</text>
+  <text x="720" y="184" font-family="sans-serif" font-size="13" fill="#5b6570">global-axis-aligned concrete blocks</text>
+  <text x="720" y="202" font-family="sans-serif" font-size="13" fill="#5b6570">with a tapered, iron-lined diagonal aperture</text>
+
+  <!-- Silicon assembly and deuteron beam; global +y is drawn to the right -->
+  <line x1="34" y1="620" x2="216" y2="620" stroke="#c94f5d" stroke-width="4" marker-end="url(#arrow-red)"/>
+  <text x="38" y="597" font-family="sans-serif" font-size="15" fill="#a93948">deuteron beam</text>
+
+  <circle cx="250" cy="620" r="116" fill="#68727d"/>
+  <circle cx="250" cy="620" r="112" fill="#93cbe3"/>
+  <circle cx="250" cy="620" r="40" fill="#68727d"/>
+  <circle cx="250" cy="620" r="37" fill="#f7fafc"/>
+  <rect x="134" y="609" width="116" height="22" fill="#f7fafc" stroke="#68727d" stroke-width="2"/>
+
+  <!-- Beam meets the Ti-T layer first, followed by the copper backing -->
+  <rect x="247" y="612" width="3" height="16" fill="#c94f5d"/>
+  <rect x="250" y="612" width="11" height="16" fill="#c57a3d" stroke="#173f5f" stroke-width="1"/>
+  <line x1="247" y1="610" x2="183" y2="464" stroke="#68727d" stroke-width="1.5"/>
+  <text x="66" y="421" font-family="sans-serif" font-size="17" font-weight="600" fill="#173f5f">Central target assembly</text>
+  <text x="66" y="444" font-family="sans-serif" font-size="14" fill="#5b6570">Ti–T target · copper backing</text>
+  <text x="66" y="465" font-family="sans-serif" font-size="14" fill="#5b6570">stainless-steel beam tube</text>
+
+  <text x="250" y="761" text-anchor="middle" font-family="sans-serif" font-size="17" font-weight="600" fill="#173f5f">Granular-silicon pile</text>
+  <text x="250" y="784" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#5b6570">30.5 cm vessel radius · 10 cm cavity</text>
+  <text x="250" y="804" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#5b6570">central cavity · reentrant beam duct</text>
+
+  <!-- Detector axis: 55 degrees from the deuteron-beam direction -->
+  <line x1="250" y1="620" x2="606" y2="112" stroke="#244d70" stroke-width="2.5" stroke-dasharray="9 7" marker-end="url(#arrow-blue)"/>
+  <path d="M320 620 A70 70 0 0 0 290 563" fill="none" stroke="#244d70" stroke-width="2"/>
+  <text x="310" y="587" font-family="sans-serif" font-size="17" fill="#244d70">55°</text>
+  <text x="338" y="493" transform="rotate(-55 338 493)" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#244d70">detector axis</text>
+
+  <!-- Iron/paraffin neutron pre-collimator -->
+  <polygon points="403.8,367.8 416.7,349.4 474.0,389.5 461.1,407.9" fill="#4d5660" stroke="#28323b" stroke-width="2"/>
+  <polygon points="416.7,349.4 498.4,232.8 555.7,272.9 474.0,389.5" fill="#8ecdbf" stroke="#367f77" stroke-width="2"/>
+  <polygon points="418.4,364.1 433.1,343.1 545.2,265.5 530.5,286.5" fill="#ffffff" stroke="#68727d" stroke-width="1.5"/>
+  <line x1="505" y1="305" x2="705" y2="332" stroke="#68727d" stroke-width="1.5"/>
+  <text x="720" y="318" font-family="sans-serif" font-size="16" font-weight="600" fill="#173f5f">Neutron pre-collimator</text>
+  <text x="720" y="340" font-family="sans-serif" font-size="13" fill="#5b6570">iron front section · paraffin rear section</text>
+  <text x="720" y="358" font-family="sans-serif" font-size="13" fill="#5b6570">coaxial 18.5 cm-radius viewing aperture</text>
+
+  <!-- NE-218 detector and its coaxial housing -->
+  <polygon points="545.8,131.3 574.5,90.3 636.7,133.9 608.1,174.9" fill="#c9b486" stroke="#806d47" stroke-width="2.5"/>
+  <polygon points="555.0,130.4 576.8,99.3 627.6,134.8 605.8,165.9" fill="#d9d3c8" stroke="#68727d" stroke-width="2"/>
+  <polygon points="569.2,125.7 577.3,114.3 613.3,139.5 605.3,151.0" fill="#f1c453" stroke="#9a7419" stroke-width="2"/>
+  <line x1="625" y1="120" x2="705" y2="96" stroke="#9a7419" stroke-width="1.5"/>
+  <text x="720" y="88" font-family="sans-serif" font-size="16" font-weight="600" fill="#173f5f">NE-218 neutron detector</text>
+  <text x="720" y="110" font-family="sans-serif" font-size="13" fill="#5b6570">coaxial detector cell and housing · about 11 m</text>
+
+  <!-- Material legend -->
+  <text x="720" y="526" font-family="sans-serif" font-size="15" font-weight="600" fill="#173f5f">Principal materials</text>
+  <g transform="translate(720 542)" font-family="sans-serif" font-size="12.5" fill="#334653">
+    <rect x="0" y="0" width="18" height="13" fill="#93cbe3" stroke="#6eacc8"/><text x="26" y="11">silicon</text>
+    <rect x="138" y="0" width="18" height="13" fill="#68727d"/><text x="164" y="11">stainless steel</text>
+    <rect x="320" y="0" width="18" height="13" fill="#c94f5d"/><text x="346" y="11">Ti–T</text>
+    <rect x="0" y="31" width="18" height="13" fill="#c57a3d"/><text x="26" y="42">copper</text>
+    <rect x="138" y="31" width="18" height="13" fill="#f1c453" stroke="#9a7419"/><text x="164" y="42">NE-218</text>
+    <rect x="320" y="31" width="18" height="13" fill="#8ecdbf" stroke="#367f77"/><text x="346" y="42">paraffin</text>
+    <rect x="0" y="62" width="18" height="13" fill="#4d5660"/><text x="26" y="73">iron</text>
+    <rect x="138" y="62" width="18" height="13" fill="#d9d3c8" stroke="#aaa397"/><text x="164" y="73">concrete</text>
+    <rect x="320" y="62" width="18" height="13" fill="#f7fafc" stroke="#68727d"/><text x="346" y="73">air</text>
+  </g>
+</svg>

@@ -166,7 +166,7 @@ for case_name, task in tasks.items():
         case_dir,
         comparison_dir,
         case_name,
-        ("comparison.gif", "difference.gif"),
+        ("comparison.gif", "difference.gif", "comparison.png", "difference.png"),
     )
 
 

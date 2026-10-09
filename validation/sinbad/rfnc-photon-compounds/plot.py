@@ -1,49 +1,67 @@
-"""Plot the RFNC precursor's diagnostic neutron leakage spectrum."""
+from pathlib import Path
+import sys
 
-import argparse
+import matplotlib
 
-import h5py
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-parser = argparse.ArgumentParser()
-parser.add_argument("input", nargs="?", default="output.h5")
-parser.add_argument("--output", default="neutron-leakage-diagnostic.png")
-args = parser.parse_args()
+# ======================================================================================
+# Input and experimental data
+# ======================================================================================
 
-# Load the diagnostic neutron current and convert it to a differential spectrum.
-with h5py.File(args.input, "r") as output:
-    tally = output["tallies/neutron_leakage_diagnostic"]
-    energy = tally["grid/energy"][:]
-    current = np.asarray(tally["current-out/mean"][:]).squeeze()
-    current_sdev = np.asarray(tally["current-out/sdev"][:]).squeeze()
+if len(sys.argv) != 2:
+    raise SystemExit("Usage: python plot.py SINBAD_INPUTS")
 
-energy_midpoint = np.sqrt(energy[:-1] * energy[1:]) * 1.0e-6
-energy_width = np.diff(energy) * 1.0e-6
-spectrum = current / energy_width
-spectrum_sdev = current_sdev / energy_width
+sinbad_inputs = Path(sys.argv[1])
+data = np.loadtxt(sinbad_inputs / "tab2res.txt", skiprows=6)
+energy_lower = data[:, 1]
+energy_upper = data[:, 2]
+energy_edges = np.append(energy_lower, energy_upper[-1])
+spectra = data[:, 3:].T
 
-# Label the figure as an intermediate diagnostic to avoid confusing it with the
-# measured photon-leakage spectrum.
-fig, ax = plt.subplots(figsize=(7.0, 4.5))
-ax.step(energy_midpoint, spectrum, where="mid", color="tab:blue", label="MC/DC")
-ax.fill_between(
-    energy_midpoint,
-    np.maximum(spectrum - spectrum_sdev, np.finfo(float).tiny),
-    spectrum + spectrum_sdev,
-    step="mid",
-    color="tab:blue",
-    alpha=0.25,
-    linewidth=0.0,
-    label=r"MC standard deviation",
-)
-ax.set_xscale("log")
-ax.set_yscale("log")
-ax.set_xlabel("Neutron energy [MeV]")
-ax.set_ylabel(r"Outward neutron current [source$^{-1}$ MeV$^{-1}$]")
-ax.set_title("RFNC compound model: neutron precursor diagnostic")
-ax.grid(which="both", alpha=0.25)
-ax.legend()
+labels = [
+    "H₂O sphere",
+    "SiO₂ sphere",
+    "SiO₂ back hemisphere",
+    "NaCl sphere",
+    "NaCl back hemisphere",
+]
+
+# The package gives a 12% combined uncertainty for absolute measurements, not
+# binwise standard deviations or a covariance matrix. The bands below display
+# that reported combined uncertainty without assigning it a Gaussian meaning.
+relative_uncertainty = 0.12
+
+# ======================================================================================
+# Plot
+# ======================================================================================
+
+fig, axes = plt.subplots(3, 2, figsize=(8, 8), sharex=True)
+
+for ax, label, spectrum in zip(axes.flat, labels, spectra):
+    ax.stairs(spectrum, energy_edges, color="tab:red", linewidth=1.1)
+    ax.stairs(
+        spectrum * (1.0 + relative_uncertainty),
+        energy_edges,
+        baseline=np.maximum(spectrum * (1.0 - relative_uncertainty), 0.0),
+        fill=True,
+        color="tab:red",
+        alpha=0.17,
+        linewidth=0.0,
+    )
+    ax.set_title(label)
+    ax.set_yscale("log")
+
+axes.flat[-1].axis("off")
+for ax in axes[-1, :1]:
+    ax.set_xlabel("Photon energy [MeV]")
+axes[1, 1].set_xlabel("Photon energy [MeV]")
+for ax in axes[:, 0]:
+    ax.set_ylabel("photons / 100,000 source neutrons")
+
+fig.suptitle("RFNC measured photon spectra — reported 12% combined uncertainty")
 fig.tight_layout()
-fig.savefig(args.output, dpi=200)
+fig.savefig("experimental-photon-spectra.png", dpi=300)
 plt.close(fig)
