@@ -13,7 +13,7 @@ if str(REPO_DIR) not in sys.path:
 from performance.metrics import output_complete, tally_score_paths
 from configs.platform_config import PLATFORMS
 
-NODE_COUNTS = (1, 2, 4, 8, 16, 32, 64)
+NODE_COUNTS = (1, 2, 4, 8, 16, 32, 64, 128)
 WORKLOAD_MULTIPLIERS = (1, 2, 4, 8, 16)
 WALLTIME_BASE_HOURS = 1.5
 
@@ -44,7 +44,7 @@ def performance_task(case_name, N_particle_base, N_node, multiplier, platform="d
     }
 
 
-def performance_tasks(config, N_node_max=64, platform="dane"):
+def performance_tasks(config, N_node_max=128, platform="dane"):
     """Expand task.yaml into the node/workload matrix."""
     _positive_integer(N_node_max, "N_node_max")
     if N_node_max not in NODE_COUNTS:

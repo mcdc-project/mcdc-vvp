@@ -32,6 +32,6 @@ LAUNCH_CONFIG = {
     "performance/parallel": {
         "enabled": False,
         "platforms": ["dane", "tuolumne"],
-        "N_node_max": 64,
+        "N_node_max": 128,
     },
 }

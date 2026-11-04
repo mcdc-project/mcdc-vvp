@@ -20,6 +20,8 @@ mgxs.h5
 # Generated plots
 *.png
 *.gif
+# Keep README figures as documentation assets.
+!/.figures/*.png
 
 # Batch and temporary files
 submit.pbs

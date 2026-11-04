@@ -44,7 +44,7 @@ The checked-in baseline is not a separate GPU calibration.
 The case input determines `N_batch` and defines its multigroup materials directly, so the current case needs no external data directory.
 For future cases with external data, resolve paths relative to `__file__` or use absolute paths because simulations run from isolated working directories.
 
-The matrix uses node counts `1, 2, 4, 8, 16, 32, 64` through `N_node_max`, and workload multipliers `1, 2, 4, 8, 16`.
+The matrix uses node counts `1, 2, 4, 8, 16, 32, 64, 128` through `N_node_max`, and workload multipliers `1, 2, 4, 8, 16`.
 Particles per batch are `N_particle_base * N_node * multiplier`.
 Each point is an independent job with exclusive node allocation and requested walltime of `1.5 * multiplier` hours, capped by the platform limit.
 Thus the nominal walltimes are `1.5, 3, 6, 12, 24` hours, including a 50% calibration buffer.
@@ -58,7 +58,7 @@ Like every suite, the top-level launch configuration uses a `platforms` list:
 "performance/parallel": {
     "enabled": True,
     "platforms": ["dane", "tuolumne"],
-    "N_node_max": 64,
+    "N_node_max": 128,
 },
 ```
 
@@ -80,8 +80,8 @@ Adding a case requires only its input and task entry, not a case-specific launch
 From this suite, preview the study without submitting jobs:
 
 ```console
-python launch.py --platform dane --N_node_max 64 --dry_run
-python launch.py --platform tuolumne --N_node_max 64 --dry_run
+python launch.py --platform dane --N_node_max 128 --dry_run
+python launch.py --platform tuolumne --N_node_max 128 --dry_run
 ```
 
 Omit `--dry_run` to submit on the selected machine.

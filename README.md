@@ -179,9 +179,9 @@ For parallel runs on $P$ nodes, tracking rate and FOM are reported per node as $
 
 The following schematic plots illustrate the intended presentation of the parallel-performance metrics; their relative heights and trends are intentional, but the values are not simulation data or predictions for any platform or transport method.
 
-![Notional tracking-rate and FOM performance envelopes for synthetic CPU and GPU configurations.](performance/design/figures/performance_curves.png)
+![Notional tracking-rate and FOM performance envelopes for synthetic CPU and GPU configurations.](.figures/performance_curves.png)
 
-![Notional performance-level and scaling-evidence summary at common histories-per-node workloads.](performance/design/figures/scaling_summary.png)
+![Notional performance-level and scaling-evidence summary at common histories-per-node workloads.](.figures/scaling_summary.png)
 
 The complete performance envelopes show how tracking rate and FOM per node vary with total histories, exposing startup overhead, workload saturation, and differences among node counts.
 For each platform-method combination, the node-count curves converge to a common asymptotic level.

@@ -50,7 +50,7 @@ parser.add_argument(
     "--N_node_max",
     type=int,
     choices=NODE_COUNTS,
-    default=64,
+    default=128,
     help="Largest power-of-two node count to include.",
 )
 parser.add_argument(
